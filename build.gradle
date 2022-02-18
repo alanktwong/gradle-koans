@@ -17,7 +17,7 @@ tasks.register('removeSolutions') {
     if (shouldBackUpSolution)
     {
         exercises.each {
-            if (shouldBackUpSolution && !file(it.path + '.solution').exists())
+            if (!file(it.path + '.solution').exists())
             {
                 logger.lifecycle "Copying $it.path to ${it.path + '.solution'}"
                 ant.copy(file: it.path, tofile: it.path + '.solution')
