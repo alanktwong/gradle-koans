@@ -136,3 +136,8 @@ hs_err_pid*
 # Compiled class file
 ######################
 *.class
+
+######################
+# Project specific
+######################
+*.solution
