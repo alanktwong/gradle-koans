@@ -9,10 +9,9 @@ boolean mayHaveFlag(String key, boolean defaultValue = false)
 tasks.register('removeSolutions') {
     it.group = 'Koan'
     it.description = 'Remove Koan solutions'
-
+    it.onlyIf { mayHaveFlag('shouldBackUpSolution') }
     def editing = 'EDITING HERE'
     def exercises = fileTree('.').files.findAll { it.text.contains("START $editing") && !it.name.contains('solution') }
-    def shouldBackUpSolution = mayHaveFlag('shouldBackUpSolution')
     exercises.each {
         if (shouldBackUpSolution && !file(it.path + '.solution').exists())
         {
