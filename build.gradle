@@ -1,13 +1,20 @@
 defaultTasks 'verify'
 
+
+boolean mayHaveFlag(String key, boolean defaultValue = false)
+{
+    return rootProject.hasProperty(key) ? Boolean.parseBoolean(rootProject.getProperty(key).toString()) : defaultValue
+}
+
 tasks.register('removeSolutions') {
     it.group = 'Koan'
     it.description = 'Remove Koan solutions'
 
     def editing = 'EDITING HERE'
     def exercises = fileTree('.').files.findAll { it.text.contains("START $editing") && !it.name.contains('solution') }
+    def shouldBackUpSolution = mayHaveFlag('shouldBackUpSolution')
     exercises.each {
-        if (!file(it.path + '.solution').exists())
+        if (shouldBackUpSolution && !file(it.path + '.solution').exists())
         {
             logger.lifecycle "Copying $it.path to ${it.path + '.solution'}"
             ant.copy(file: it.path, tofile: it.path + '.solution')
