@@ -9,21 +9,26 @@ boolean mayHaveFlag(String key, boolean defaultValue = false)
 tasks.register('removeSolutions') {
     it.group = 'Koan'
     it.description = 'Remove Koan solutions'
-    it.onlyIf { mayHaveFlag('shouldBackUpSolution') }
+
+    def shouldBackUpSolution = mayHaveFlag('shouldBackUpSolution')
+    it.onlyIf { shouldBackUpSolution }
     def editing = 'EDITING HERE'
     def exercises = fileTree('.').files.findAll { it.text.contains("START $editing") && !it.name.contains('solution') }
-    exercises.each {
-        if (shouldBackUpSolution && !file(it.path + '.solution').exists())
-        {
-            logger.lifecycle "Copying $it.path to ${it.path + '.solution'}"
-            ant.copy(file: it.path, tofile: it.path + '.solution')
+    if (shouldBackUpSolution)
+    {
+        exercises.each {
+            if (shouldBackUpSolution && !file(it.path + '.solution').exists())
+            {
+                logger.lifecycle "Copying $it.path to ${it.path + '.solution'}"
+                ant.copy(file: it.path, tofile: it.path + '.solution')
+            }
+            def lines = it.readLines()
+            int start = lines.findIndexOf { it.contains("START $editing") }
+            int stop = lines.findIndexOf { it.contains("STOP $editing") }
+            assert start >= 0 && stop >= 0, "Error in file $it"
+            def result = lines[0..(start)] + '' + lines[(stop)..-1]
+            it.text = result.join('\n')
         }
-        def lines = it.readLines()
-        int start = lines.findIndexOf { it.contains("START $editing") }
-        int stop = lines.findIndexOf { it.contains("STOP $editing") }
-        assert start >= 0 && stop >= 0, "Error in file $it"
-        def result = lines[0..(start)] + '' + lines[(stop)..-1]
-        it.text = result.join('\n')
     }
 }
 
