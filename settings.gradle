@@ -1,12 +1,17 @@
 import groovy.io.FileType
 import groovy.io.FileVisitResult
+import java.nio.file.Paths
+
+rootProject.name = 'groovy-koans'
 
 new File('.').traverse(
-	type: FileType.DIRECTORIES, 
-	preDir: { if (it.name ==~ /\..*/) return FileVisitResult.SKIP_SUBTREE }, 
-	excludeNameFilter: ~/\..*/, 
-	nameFilter: ~/[0-9].*/
-	) { 
-		def subproject = it.path.replaceAll('\\./', '')
-		include subproject
-	}
+    type: FileType.DIRECTORIES,
+    preDir: { if (it.name ==~ /\..*/) return FileVisitResult.SKIP_SUBTREE },
+    excludeNameFilter: ~/\..*/,
+    nameFilter: ~/[0-9].*/
+) {
+    def subproject = it.path.replaceAll('\\./', '')
+    def subprojectPath = Paths.get('.').resolve(subproject)
+    def subprojectName = subprojectPath.fileName.toString()
+    include subprojectName
+}
