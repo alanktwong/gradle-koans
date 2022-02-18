@@ -1,4 +1,4 @@
-task verify << {
+task verify {
     assert true
 }
 

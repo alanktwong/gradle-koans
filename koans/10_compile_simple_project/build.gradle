@@ -10,7 +10,7 @@
 apply plugin: 'java'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
@@ -24,10 +24,13 @@ jar {
 // ------------ STOP EDITING HERE  ----------------------
 
 task verify {
-    if (tasks.findByPath('jar')) dependsOn(jar)
+    if (tasks.findByPath('jar'))
+    {
+        it.dependsOn('jar')
+    }
 }
 
-verify << {
+verify {
     assert plugins.findPlugin('java')
     assert file('build/libs/myProject-1.2.3.jar').exists()
 }

@@ -1,7 +1,7 @@
 /*
  * INSTRUCTION:
  * ===========
- * 1. Create project extension with properties year, and workshop name. Use extension in printWorkshopDesc and print 
+ * 1. Create project extension with properties year, and workshop name. Use extension in printWorkshopDesc and print
  *    "Worskop: Gradle workshop, year 2013"
  */
 
@@ -14,15 +14,16 @@ warsjawa {
     workshop = 'Gradle workshop'
 }
 
-class WarsjawaExtension {
+class WarsjawaExtension
+{
     Integer year
     String workshop
 }
 
-task printWorkshopDesc << {
-    println "Worskop: $project.warsjawa.workshop, year $project.warsjawa.year "
+task printWorkshopDesc {
+    println "Workshop: $project.warsjawa.workshop, year $project.warsjawa.year "
 }
 
 // ------------ STOP EDITING HERE  ----------------------
 
-task verify(dependsOn: printWorkshopDesc)
+task verify(dependsOn: 'printWorkshopDesc')

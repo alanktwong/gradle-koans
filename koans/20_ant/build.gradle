@@ -6,7 +6,7 @@
  */
 
 // ------------ START EDITING HERE ----------------------
-task zip << {
+task zip {
     ant.zip(destfile: 'archive.zip') {
         fileset(dir: 'toZip') {
             exclude(name: '**.secret')

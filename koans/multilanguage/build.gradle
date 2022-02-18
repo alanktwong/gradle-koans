@@ -1,7 +1,7 @@
 /*
  * INSTRUCTION:
  * ===========
- * 
+ *
  * 1. Configure multilanguage project.
  * 2. Write separate tasks for unit and integration tests.
  * 3. Configure jar task so that it is 'shaded jar' (or 'fat jar') i.e. it includes all dependencies.
@@ -18,7 +18,7 @@ repositories {
 
 sourceSets {
     main {
-        java { 
+        java {
             srcDirs = []
         }
         groovy {

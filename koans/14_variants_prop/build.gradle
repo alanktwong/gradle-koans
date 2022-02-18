@@ -8,7 +8,7 @@
 apply plugin: 'java'
 
 sourceSets.main.java {
-    srcDir (project.hasProperty('prod') ? 'variantProd' : 'variantDev')
+    srcDir(project.hasProperty('prod') ? 'variantProd' : 'variantDev')
 }
 
 // ------------ STOP EDITING HERE  ----------------------

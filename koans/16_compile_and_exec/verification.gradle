@@ -1,1 +1,1 @@
-task verify(dependsOn: jar)
+task verify(dependsOn: 'jar')

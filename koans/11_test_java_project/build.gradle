@@ -3,7 +3,7 @@
  * ===========
  * 1. Add junit dependency from maven central so that execution of task 'test' will succeed
  */
- 
+
 apply plugin: 'java'
 
 // ------------ START EDITING HERE ----------------------
@@ -12,15 +12,18 @@ repositories {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.11'
+    testCompileOnly 'junit:junit:4.11'
 }
 // ------------ STOP EDITING HERE  ----------------------
 
 task verify {
-    if (tasks.findByPath('test')) dependsOn(test)
+    if (tasks.findByPath('test'))
+    {
+        it.dependsOn('test')
+    }
 }
 
-verify << {
+verify {
     assert configurations.testCompile.allDependencies
     assert configurations.compile.allDependencies.isEmpty()
     assert gradle.taskGraph.allTasks.collect { it.name }.grep('test')

@@ -1,10 +1,11 @@
 package pl.warsjawa;
 
-public class Hello {
+public class Hello
+{
+  String message = "Hello message";
 
-    String message = "Hello message";
-
-    String getMessage() {
-        return message;
-    }
+  String getMessage()
+  {
+    return message;
+  }
 }

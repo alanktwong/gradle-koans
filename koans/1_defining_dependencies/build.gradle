@@ -1,9 +1,9 @@
-task verify << {
+task verify {
     assert ['A', 'B', 'C', 'D', 'E'].every { tasks.findByPath(it) }
-	assert B.dependsOn.contains(A)
-	assert C.dependsOn.flatten().containsAll([B, D])
-	assert E.dependsOn.contains(D)
-	['A', 'B', 'C', 'D', 'E'].each { assert tasks.findByPath(it).description == "Description of task $it" }
+    assert B.dependsOn.contains(A)
+    assert C.dependsOn.flatten().containsAll([B, D])
+    assert E.dependsOn.contains(D)
+    ['A', 'B', 'C', 'D', 'E'].each { assert tasks.findByPath(it).description == "Description of task $it" }
 }
 
 /*
