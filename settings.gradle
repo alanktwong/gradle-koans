@@ -2,7 +2,7 @@ import java.nio.file.Paths
 import groovy.io.FileType
 import groovy.io.FileVisitResult
 
-rootProject.name = 'groovy-koans'
+rootProject.name = 'gradle-koans'
 
 new File('.').traverse(
     type: FileType.DIRECTORIES,
